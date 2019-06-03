@@ -1,0 +1,26 @@
+{
+  "name": "laravel5-snippets-atom",
+  "version": "1.0.0",
+  "description": "Laravel5 snippets for Atom.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TsaiKoga/laravel5-snippets-atom.git"
+  },
+  "activationCommands": {
+    "atom-workspace": "laravel5-snippets-atom:toggle"
+  },
+  "keywords": [
+    "atom",
+    "laravel",
+    "snippets"
+  ],
+  "author": "tsaikoga",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/tsaikoga/laravel5-snippets-atom/issues"
+  },
+  "homepage": "https://github.com/tsaikoga/laravel5-snippets-atom#readme"
+}

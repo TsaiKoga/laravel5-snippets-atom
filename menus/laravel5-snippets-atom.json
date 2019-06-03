@@ -1,0 +1,26 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Toggle laravel5-snippets-atom",
+        "command": "laravel5-snippets-atom:toggle"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "laravel5-snippets-atom",
+          "submenu": [
+            {
+              "label": "Toggle",
+              "command": "laravel5-snippets-atom:toggle"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

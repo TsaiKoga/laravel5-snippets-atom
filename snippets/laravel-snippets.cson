@@ -1,0 +1,637 @@
+'.text.html.php':
+  # PHP
+  # class
+  'protected variable':
+    'prefix': 'pvar'
+    'body': """
+    /**
+     * ${1:The active PDO connection used for reads.}
+     *
+     * @var ${2:\\\\PDO\|\\\\Closure}
+     */
+    protected \\$${3:readPdo};
+    $4
+    """
+  'public function':
+    'prefix': 'pfun'
+    'body': """
+    /**
+     * ${1:Create a function}
+     *
+     * @param ${2:string} ${3:\\$var}
+     * @return ${4:void}
+     */
+    public function ${5:functionName}(${3:\\$var})
+    {
+      $6
+    }$7
+    """
+  'public construct':
+    'prefix': '_const'
+    'body': """
+    /**
+     * ${1:Create a new command instance.}
+     *
+     * @param  ${2:type}  \\$${3:var}
+     * @return $5
+     */
+    public function __construct(${2:type} \\$${3:var})
+    {
+        parent::__construct();
+
+        $this->$4 = \\$${3:var};
+
+        $6
+    }$7
+    """
+  'try7':
+    'prefix': 'Try Catch php7'
+    'body': """
+    try {
+        $1
+    } catch(\\\\Throwable $e) {
+        \\\\Log::error($e->getMessage());
+        $2
+    } catch(\\\\Exception $e) {
+        \\\\Log::error($e->getMessage());
+        $3
+    }$4
+    """
+  # Laravel 5+
+  #
+  # Debug
+  'DieDump':
+    'prefix': 'dd'
+    'body': """
+    dd(${1:something});
+    """
+  # Command
+  'Command option':
+    'prefix': 'cmd:opt'
+    'body': """
+    \\$this->option('$1');$2
+    """
+  'Command confirm':
+    'prefix': 'cmd:confirm'
+    'body': """
+    \\$this->confirm('${1:Do you wish to continue? [Y|N]}');$2
+    """
+  'Command info':
+    'prefix': 'cmd:info'
+    'body': """
+    \\$this->info('${1:Message}');$2
+    """
+  'Command error':
+    'prefix': 'cmd:error'
+    'body': """
+    \\$this->error('${1:Message}');$2
+    """
+  'Command warn':
+    'prefix': 'cmd:warn'
+    'body': """
+    \\$this->warn('${1:Message}');$2
+    """
+  'Command ask(Prompts the user with question)':
+    'prefix': 'cmd:ask'
+    'body': """
+    \\$this->ask('${1:Question}');$2
+    """
+  'Command start progress bar':
+    'prefix': 'cmd:bar:start'
+    'body': """
+    \\$bar = \\$this->output->createProgressBar(${1:\\$user_count})$2;
+    """
+  'Command advance progress bar':
+    'prefix': 'cmd:bar:adv'
+    'body': """
+    \\$bar->advance();
+    """
+  'Command finish progress bar':
+    'prefix': 'cmd:bar:end'
+    'body': """
+    \\$bar->finish();
+    """
+  # Models
+  'fillable columns':
+    'prefix': 'filla:pp'
+    'body': """
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['${1:properties}'$2];
+    """
+  'hasMany function':
+    'prefix': 'hasmany:fun'
+    'body': """
+    /**
+     * Get the ${1:models} for the ${2:model}.
+     *
+     * @return \\\\Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany
+     */
+    public function ${1:models}()
+    {
+        return $this->hasMany(${3:Name}::class${4:, 'foreign_key', 'local_key'});
+    }
+    """
+  'belongsTo function':
+    'prefix': 'belongsto:fun'
+    'body': """
+    /**
+     * Get the ${1:model} that owns the ${2:model}.
+     *
+     * @return \\\\Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo
+     */
+    public function ${1:model}()
+    {
+        return $this->belongsTo(${3:Name}::class${4:, 'foreign_key', 'local_key'});
+    }
+    """
+  'belongsToMany function':
+    'prefix': 'belongstom:fun'
+    'body': """
+    /**
+     * The ${1:models} that belong to the ${2:model}.
+     *
+     * @return \\\\Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany
+     */
+    public function ${1:models}()
+    {
+        return $this->belongsToMany(${3:Name}::class${4:, 'table_name', 'foreign_key', 'local_key'});
+    }
+    """
+  'hasOne function':
+    'prefix': 'hasone:fun'
+    'body': 'Hello World!'
+  'model with':
+    'prefix': 'within'
+    'body': """
+    ::with(['$1' => function($query$2) {
+        $query->where($3)->select($4);
+    }]);
+    """
+  'model boot':
+    'prefix': 'boot:fun'
+    'body': """
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        ${1:self::creating(function(\$model){}}
+    }
+    """
+  'Scope function':
+    'prefix': 'scope:fun'
+    'body': """
+    /**
+     * Scope a query to only include ${2:description}.
+     *
+     * @param \\\\Illuminate\\\\Database\\\\Eloquent\\\\Builder $query
+     * @return \\\\Illuminate\\\\Database\\\\Eloquent\\\\Builder
+     */
+    public function scope${1:Name}($query)
+    {
+        return $query->${3:where($4)};
+    }
+    """
+  # View
+  'Create a View with Data':
+    'prefix': 'view:make'
+    'body': """
+    view('${1:view.name}', ${2:\\$data});$3
+    """
+  'Create a View, Pass Data with compact()':
+    'prefix': 'view::make:compact'
+    'body': """
+    Create a View, Pass Data with compact()
+    """
+  'Create a View, Pass Data using with()':
+    'prefix': 'view:make:with'
+    'body': """
+    view(${1:'view.name'})->with('${2:key}', ${3:\\$value});$4
+    """
+  'Render a view with some data':
+    'prefix': 'view:render'
+    'body': """
+    view(${1:'name'}, ${2:\\$data})->render();$3
+    """
+  'Share Data across all Views':
+    'prefix': 'view:share'
+    'body': """
+    view()->share('${1:key}', ${2:\\$value});$3
+    """
+  'Determine if a view exists':
+    'prefix': 'view:exists'
+    'body': """
+    if (view()->exists('${1:view.name}'))
+    {
+        $2
+    }
+    """
+  # Controller
+  'Use DB':
+    'prefix': 'use:db'
+    'body': """
+    use Illuminate\\\\Support\\\\Facades\\\\DB;
+    """
+  'Use Validator':
+    'prefix': 'use:valid'
+    'body': """
+    use Illuminate\\\\Support\\\\Facades\\\\Validator;
+    """
+  'Validator make':
+    'prefix': 'valid:mk'
+    'body': """
+    $validator = Validator::make($request->${1:all()}, [
+        '$2' => '${3:required}|${4:string}|${5:max\:255}',
+        '$6' => '$7',
+        $8
+    ]);
+    if ($validator->fails()) {
+        $9
+    }$10
+    """
+  'Transaction try catch':
+    'prefix': 'trans:try'
+    'body': """
+    DB::beginTransaction();
+    try {
+        $1
+        DB::commit();
+        return ${2:\\$this->json_output(200, \\'修改信息\\', \\$datas)};
+    } catch(\\\\Throwable $e) {
+        \\\\Log::error($e->getMessage());
+        DB::rollback($e->getMessage());
+        return ${3:\\$this->json_output(2007, \\'保存失败\\')};
+    } catch(\\\\Exception $e) {
+        \\\\Log::error($e->getMessage());
+        DB::rollback($e->getMessage());
+        return ${4:\\$this->json_output(2007, \\'保存失败\\')};
+    }$5
+    """
+  'Transaction closure':
+    'prefix': 'tran:closure'
+    'body': """
+    DB::transaction(function () {
+        $1
+    });$2
+    """
+  # Request
+  'Request method(GET,POST,...)':
+    'prefix': 'req:method'
+    'body': """
+    \\$request->method()
+    """
+  'Request URL(without query)':
+    'prefix': 'req:url'
+    'body': """
+    \\$request->url()
+    """
+  'Request full-URL':
+    'prefix': 'req:full:url'
+    'body': """
+    \\$request->fullUrl()
+    """
+  'Request full-URL with query':
+    'prefix': 'req:full:url:query'
+    'body': """
+    \\$request->fullUrlWithQuery(${1:\\$query})$2
+    """
+  'Request key exists?':
+    'prefix': 'req::exists'
+    'body': """
+    \\$request->exists('${1:key}')$2"
+    """
+  'Request has key?':
+    'prefix': 'req:has'
+    'body': """
+    \\$request->has('${1:key}')$2
+    """
+  'Request input':
+    'prefix': 'req:input'
+    'body': """
+    \\$request->input('${1:key}'${2:, 'default'})$3
+    """
+  'Request only keys':
+    'prefix': 'req:only'
+    'body': """
+    \\$request->only(${1:\\$keys})$2
+    """
+  'Request except keys':
+    'prefix': 'req:except'
+    'body': """
+    \\$request->except(${1:\\$keys})$2
+    """
+  'Request query key-value':
+    'prefix': 'req:query'
+    'body': """
+    \\$request->query('${1:key}', '${2:default'})$3
+    """
+  'Request has Cookie?':
+    'prefix': 'req:has:cookie'
+    'body': """
+    \\$request->hasCookie('${1:key}')$2
+    """
+  'Request get cookie':
+    'prefix': 'req:cookie'
+    'body': """
+    \\$request->cookie('${1:key}', '${2:default'})$3
+    """
+  'Request get all files array':
+    'prefix': 'req:files'
+    'body': """
+    \\$request->allFiles()
+    """
+  'Request has file?':
+    'prefix': 'req:has:file'
+    'body': """
+    \\$request->hasFile('${1:key}')$2
+    """
+  'Request get a file':
+    'prefix': 'req:get:file'
+    'body': """
+    \\$request->file('${1:key}'${2:, 'default'})$2
+    """
+  # Cache
+  'Cache get':
+    'prefix': 'cc:get'
+    'body': """
+    ${1:\\$value} = Cache::get('${2:key}', '${3:default}');
+    """
+  'Cache has':
+    'prefix': 'cc:has'
+    'body': """
+    Cache::has('${1:key}')
+    """
+  'Cache remember':
+    'prefix': 'cc:re'
+    'body': """
+    ${1:\\$value} = Cache::remember('${2:users}', ${3:\\$minutes}, function () {
+        return ${4:DB::table('users')->get()};
+    });
+    """
+  'Cache add if not exists':
+    'prefix': 'cc:add'
+    'body': """
+    Cache::add('${1:key}', ${2:\\$value}, ${3:\\$minutes});$4
+    """
+  'Cache put':
+    'prefix': 'cc:put'
+    'body': """
+    Cache::put('${1:key}', '${2:value}', ${3:\\$minutes});$4
+    """
+  'Cache forget':
+    'prefix': 'cc:forget'
+    'body': """
+    Cache::forget('${1:key}');$2
+    """
+  'Cache pull':
+    'prefix': 'cc:pull'
+    'body': """
+    Cache::pull('${1:key}');$2
+    """
+  'Cache increment':
+    'prefix': 'cc:inc'
+    'body': """
+    Cache::increment('${1:key}', ${2:\\$amount});$3
+    """
+  'Cache decrement':
+    'prefix': 'cc:dec'
+    'body': """
+    Cache::decrement('${1:key}', ${2:\\$amount});$3
+    """
+  'Cache lock get':
+    'prefix': 'cc:lock:get'
+    'body': """
+    Cache::lock('${1:lock-name}', ${2:60})->get()
+    """
+  'Cache lock release':
+    'prefix': 'cc:lock:rel'
+    'body': """
+    Cache::lock('${1:lock-name}')->release()
+    """
+  'Cache lock block':
+    'prefix': 'Cache::lock:block'
+    'body': """
+    Cache::lock('${1:lock-name}', ${2:60})->block(${3:10})
+    """
+  # Config
+  'Config get':
+    'prefix': 'cf:get'
+    'body': """
+    Config::get('${1:key}', '${2:default}');$3
+    """
+  'Config has':
+    'prefix': 'cf:has'
+    'body': """
+    Config::has('${1:key}')$2
+    """
+  'Config set':
+    'prefix': 'cf:set'
+    'body': """
+    Config::set('${1:key}', ${2:\\$value});$3
+    """
+  'Config set-Many':
+    'prefix': 'cf:set:many'
+    'body': """
+    Config::set([
+        ${1:key}' => ${2:\\$value},$3",
+    ]);$4"
+    """
+  # Route
+  'Route current route name':
+    'prefix': 'route:cur:act'
+    'body': """
+    Route::currentRouteAction();
+    """
+  'Route group':
+    'prefix': 'route:group'
+    'body': """
+    Route::group(${1:['${2:prefix}' => '${3:admin}']}, function () {
+        $4
+    });
+    """
+  'Route group middleware':
+    'prefix': 'route:group:middleware'
+    'body': """
+    Route::group(['middleware' => ['${1:groupName}']], function () {
+        $2
+    });
+    """
+  'Route controller@action':
+    'prefix': 'route:ctl:act'
+    'body': """
+    Route::${1:get}('${2:users\\/\\{id\\}}', '${3:UserController@profile}');
+    """
+  'Route get/post/del closure':
+    'prefix': 'route:closure'
+    'body': """
+    Route::${1:get}('${2:users\\/\\{id\\}}', function (${3:\\$id}) {
+        $4
+    });
+    """
+  # Auth
+  'Is current user auth?':
+    'prefix': 'auth:check'
+    'body': """
+    Auth::check()
+    """
+  'Is current user guest?':
+    'prefix': 'auth:guest'
+    'body': """
+    Auth::guest()
+    """
+  'Log the user out':
+    'prefix': 'auth:logout'
+    'body': """
+    Auth::logout();
+    """
+  'Get the currently auth user':
+    'prefix': 'auth:user'
+    'body': """
+    Auth::user()
+    """
+  'customize the \"guard\" that is used to authenticate and register users':
+    'prefix': 'auth:guard'
+    'body': """
+    Auth::guard('${1:guardName}')$2
+    """
+  'Login by key-value':
+    'prefix': 'auth:attempt'
+    'body': """
+    Auth::attempt([${1:'email' => \\$email, 'password' => \\$password}])$2
+    """
+  'Login an existing user':
+    'prefix': 'auth:login'
+    'body': """
+    Auth::login(${1:\\$user});$2
+    """
+  'Login by user id':
+    'prefix': 'auth:login:id'
+    'body': """
+    Auth::loginUsingId($1);$2
+    """
+  # Array Helper
+  'Using dot to add elem':
+    'prefix': 'array:add'
+    'body': """
+    array_add(${1:\\$array}, ${2:'key'}, ${3:'value'})$4
+    """
+  'Collapse to a single array':
+    'prefix': 'array:collapse'
+    'body': """
+    array_collapse(${1:\\$array})$2
+    """
+  'Get an item from an data array using \"dot\" notation':
+    'prefix': 'array:data:get'
+    'body': """
+    data_get(${1:\\$array}, ${2:'names.john'}, ${3:'default'})$4
+    """
+  'Divide an array into two arrays':
+    'prefix': 'array:divide'
+    'body': """
+    list(${1:\\$keys}, ${2:\\$values}) = array_divide(${3:\\$array})$4
+    """
+  'Flatten a multi-dimensional associative array with dots':
+    'prefix': 'array:dot'
+    'body': """
+    array_dot(${1:\\$array})$2
+    """
+  'Get the last element of an array. Useful for method chaining':
+    'prefix': 'array:last'
+    'body': """
+    last(${1:\\$array)$2
+    """
+  'Get all of the given array except for a specified array of items':
+    'prefix': 'array:except'
+    'body': """
+    array_except(${1:\\$array}, ${2:['key', 'otherKey']})$3
+    """
+  'Return the first element in an array passing a given truth test':
+    'prefix': 'array:first'
+    'body': """
+    array_first(${1:\\$array}, function (${2:\\$key}, ${3:\\$value}) {
+        return ${4:\\$value >= 150;}
+    });$5
+    """
+  'Will flatten a multi-dimensional array into a single level':
+    'prefix': 'array:flatten'
+    'body': """
+    array_flatten(${1:\\$array})$2
+    """
+  'Remove one or many array items from a given array using dot notation':
+    'prefix': 'array:forget'
+    'body': """
+    array_forget(${1:\\$array}, ${2:'names.joe'})$3
+    """
+  'Get an item from an array using \"dot\" notation':
+    'prefix': 'array:get'
+    'body': """
+    array_get(${1:\\$array}, ${2:'names.john'}, ${3:'default'})$4
+    """
+  'Check if an item exists in an array using \"dot\" notation':
+    'prefix': 'array:has'
+    'body': """
+    array_has(${1:\\$array}, ${2:key})$3"
+    """
+  'Get the first element of an array. Useful for method chaining':
+    'prefix': 'array:head'
+    'body': """
+    head(${1:\\$array})$2
+    """
+  'Return the last element in an array passing a given truth test':
+    'prefix': 'array:last'
+    'body': """
+    array_last(${1:\\$array}, function (${2:\\$key}, ${3:\\$value}) {
+        return ${4:\\$value >= 150;}
+    });$5
+    """
+  'Get a subset of the items from the given array':
+    'prefix': 'array:only'
+    'body': """
+    array_only(${1:\\$array}, ${2:['key', 'otherKey']})$3
+    """
+  'Pluck an array of values from an array':
+    'prefix': 'array:pluck'
+    'body': """
+    array_pluck(${1:\\$array}, ${2:'value'})$3
+    """
+  'Push an item onto the beginning of an array':
+    'prefix': 'array:prepend'
+    'body': """
+    array_prepend(${1:\\$array}, ${2:'value'})$3
+    """
+  'Get a value from the array, and remove it':
+    'prefix': 'array:pull'
+    'body': """
+    array_pull(${1:\\$array}, ${2:'value'})$3
+    """
+  'Set an array item to a given value using \"dot\" notation':
+    'prefix': 'array:set'
+    'body': """
+    array_set(${1:\\$array}, ${2:'products.desk.price'}, ${3:200})$4
+    """
+  'Recursively sort an array by keys and values':
+    'prefix': 'array:sort:rec'
+    'body': """
+    array_sort_recursive(${1:\\$array});$2
+    """
+  'Sort the array using the given callback.':
+    'prefix': 'array:sort'
+    'body': """
+    array_values(array_sort(${1:\\$array}, function (${2:\\$key}, ${3:\\$value}) {
+        return ${3:\\$value}['${4:name}'];
+    }));$5
+    """
+  'Filter the array using the given callback':
+    'prefix': 'array:where'
+    'body': """
+    array_where(${2:\\$array}, function (${3:\\$key}, ${4:\\$value}) {
+        return ${4:is_string(\\$value);}
+    });$5
+    """
