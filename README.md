@@ -19,6 +19,15 @@ You should restart Atom after the Install / Update of the package.
 * **pfun**: Define public method.
 * **\__const**: Construct method.
 * **try7**: Try ... catch.
+* **throwex**: throw exception.
+* **car:now**: Carbon now.
+* **car:today:start**: Carbon today.
+* **car:start**:  Carbon end of day.
+* **car:end**: Carbon end of day.
+* **car:week:start**: Carbon start of week.
+* **car:week:end**: Carbon end of week.
+* **car:create**: Carbon create datetime.
+
 
 ## Laravel:
 ### Debug
@@ -37,19 +46,27 @@ You should restart Atom after the Install / Update of the package.
 
 ### Models
 * **filla:pp**: Fillable model property.
-* **hasmany:fun**: HasMany method.
+* **casts:col**: Attribute Cast to other type.
+* **getfun**: Attribute Accessor(Getter).
+* **setfun**: Attribute Mutator(Setter).
 * **belongsto:fun**: BelongsTo method.
 * **belongstom:fun**: BelongsToMany method.
 * **hasone:fun**: HasOne method.
 * **within**: With method.
 * **boot:fun**: Boot method.
 * **scope:fun**: Scope method.
+* **del:all**: Delete all records.
+* **del:one**: Delete a record.
+* **del:force**: Force delete record.
+
 
 ### Controller
 * **use:db**: Use DB.
+* **use:log**: Use Log.
 * **use:valid**: Use Validator.
 * **valid:mk**: Validator check.
 * **trans:try**: Transaction try catch.
+* **mid:ctrl**: Middleware in controller.
 
 ### Request
 * **req:method**: Get the request method (GET, POST, ...).

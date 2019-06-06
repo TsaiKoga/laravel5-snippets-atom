@@ -23,7 +23,7 @@
      */
     public function ${5:functionName}(${3:\\$var})
     {
-      $6
+        $6
     }$7
     """
   'public construct':
@@ -56,6 +56,46 @@
         \\\\Log::error($e->getMessage());
         $3
     }$4
+    """
+  'throw exception':
+    'prefix': 'throwex'
+    'body': """
+    throw new Exception(\\"${1:Error}\\");
+    """
+  'Carbon now':
+    'prefix': 'car:now'
+    'body': """
+    Carbon::now()${1:->toDatetimeString()};
+    """
+  'Carbon today':
+    'prefix': 'car:today:start'
+    'body': """
+    Carbon::today()${1:->toDatetimeString()};
+    """
+  'Carbon start of day':
+    'prefix': 'car:start'
+    'body': """
+    Carbon::${1:now()}->startOfDay()${2:->toDateTimeString()};
+    """
+  'Carbon end of day':
+    'prefix': 'car:end'
+    'body': """
+    Carbon::${1:now()}->endOfDay()${2:->toDateTimeString()};
+    """
+  'Carbon start of week':
+    'prefix': 'car:week:start'
+    'body':"""
+    Carbon::${1:now()}->startOfWeek()${2:->toDateTimeString()};
+    """
+  'Carbon end of week':
+    'prefix': 'car:week:end'
+    'body': """
+    Carbon::${1:now()}->endOfWeek()${2:->toDateTimeString()};
+    """
+  'Carbon create datetime':
+    'prefix': 'car:create'
+    'body': """
+    Carbon::create(${1:2019}, ${2:6}, ${3:1})->format(${4:'Y-m'});
     """
   # Laravel 5+
   #
@@ -121,6 +161,47 @@
      * @var array
      */
     protected $fillable = ['${1:properties}'$2];
+    """
+  'Attribute Cast to other type':
+    'prefix': 'casts:col'
+    'body': """
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        '${1:is_admin}' => '${2:boolean}',
+        '${3:created_at}' => '${4:datetime\\:Y-m-d}',
+    ];
+    """
+  'Attribute Accessor(Getter)':
+    'prefix': 'getfun'
+    'body': """
+    /**
+     * Get the ${1:user's first name}.
+     *
+     * @param  ${2:string}  ${3:\\$value}
+     * @return ${4:string}
+     */
+    public function get${5:FirstName}Attribute(${3:\\$value})
+    {
+        return ${6:ucfirst(\\$value)};
+    }
+    """
+  'Attribute Mutator(Setter)':
+    'prefix': 'setfun'
+    'body': """
+    /**
+     * Set the ${1:user's first name}.
+     *
+     * @param  ${2:string}  ${3:$value}
+     * @return ${4:void}
+     */
+    public function set${5:FirstName}Attribute(${3:\\$value})
+    {
+        $this->attributes['${6:first_name}'] = ${7:strtolower(\\$value)};
+    }
     """
   'hasMany function':
     'prefix': 'hasmany:fun'
@@ -199,6 +280,15 @@
         return $query->${3:where($4)};
     }
     """
+  'Delete all records':
+    'prefix': 'del:all'
+    'body': "$1::truncate();$2"
+  'Delete a record':
+    'prefix': 'del:one'
+    'body': "$1::delete();$2"
+  'Force delete record':
+    'prefix': 'del:force'
+    'body': "$1::forceDelete();$2"
   # View
   'Create a View with Data':
     'prefix': 'view:make'
@@ -238,6 +328,11 @@
     'prefix': 'use:db'
     'body': """
     use Illuminate\\\\Support\\\\Facades\\\\DB;
+    """
+  'Use Log':
+    'prefix': 'use:log'
+    'body': """
+    use Illuminate\\\\Support\\\\Facades\\\\Log;
     """
   'Use Validator':
     'prefix': 'use:valid'
@@ -280,6 +375,21 @@
     DB::transaction(function () {
         $1
     });$2
+    """
+  'Middleware in controller':
+    'prefix': 'mid:ctrl'
+    'body': """
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('${1:auth}');
+
+        $this->middleware('${2:log}')->only('${3:index}');
+    }
     """
   # Request
   'Request method(GET,POST,...)':
