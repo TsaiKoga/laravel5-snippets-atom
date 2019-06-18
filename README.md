@@ -55,9 +55,14 @@ You should restart Atom after the Install / Update of the package.
 * **within**: With method.
 * **boot:fun**: Boot method.
 * **scope:fun**: Scope method.
+* **leftjoin:closure**: Left join closure.
 * **del:all**: Delete all records.
 * **del:one**: Delete a record.
 * **del:force**: Force delete record.
+* **update:inc**: Update increment.
+* **update:dec**: Update decrement.
+* **db:update:case**: Update case when.
+* **db:table:alias**: Alias table query.
 
 
 ### Controller
@@ -153,6 +158,12 @@ You should restart Atom after the Install / Update of the package.
 * **array:sort:rec**: Recursively sort an array by keys and values.
 * **array:sort**: Sort the array using the given callback.
 * **array:where**: Filter the array using the given callback.
+
+
+### Log
+* **log:files:daily**: Storing and use daily log file.
+* **log:files**: Storing and use log file.
+
 ***
 
 ![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)

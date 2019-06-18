@@ -280,15 +280,46 @@
         return $query->${3:where($4)};
     }
     """
+  'Left join closure':
+    'prefix': 'leftjoin:closure'
+    'body': """
+    leftJoin('${1:users}', function(\\$join) {
+        \\$join->on('${1:users}\\.${2:user_id}', '${3:orders}\\.${2:user_id}')$4;
+    })
+    """
   'Delete all records':
     'prefix': 'del:all'
-    'body': "$1::truncate();$2"
+    'body': "${1:Model}::truncate();$2"
   'Delete a record':
     'prefix': 'del:one'
-    'body': "$1::delete();$2"
+    'body': "${1:model}->delete();$2"
   'Force delete record':
     'prefix': 'del:force'
-    'body': "$1::forceDelete();$2"
+    'body': "${1:model}->forceDelete();$2"
+  'Update increment':
+    'prefix': 'update:inc'
+    'body': """
+    DB::table('${1:users}')->increment('${2:votes}', ${3:1}${4:, ['${5:name}' => '${6:John}']});
+    """
+  'Update decrement':
+    'prefix': 'update:dec'
+    'body': """
+    DB::table('${1:users}')->decrement('${2:votes}', ${3:1});
+    """
+  'Update case when':
+    'prefix': 'db:update:case'
+    'body': """
+    ${1:DB}::update("UPDATE `${2:table}` SET `${3:column}` =
+        CASE `${4:col}`
+        WHEN ${5:val} THEN ?
+        END
+        WHERE $6", ${7:\\$params});
+    """
+  'Alias table query':
+    'prefix': 'db:table:alias'
+    'body': """
+    DB::table(DB::raw("({${2:\\$query}->toSql()}) AS ${3:alias_table}"))->mergeBindings(${2:\\$query}->getQuery())$4
+    """
   # View
   'Create a View with Data':
     'prefix': 'view:make'
@@ -744,4 +775,15 @@
     array_where(${2:\\$array}, function (${3:\\$key}, ${4:\\$value}) {
         return ${4:is_string(\\$value);}
     });$5
+    """
+  # Log
+  'Storing and use daily log file':
+    'prefix': 'log:files:daily'
+    'body': """
+    Log::useDailyFiles(${1:storage_path().'/logs/${2:my}.log'}, ${3:7});
+    """
+  'Storing and use log file':
+    'prefix': 'log:files'
+    'body': """
+    Log::useFiles(${1:storage_path().'/logs/${2:my}.log'});
     """
