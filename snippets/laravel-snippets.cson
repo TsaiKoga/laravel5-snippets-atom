@@ -239,12 +239,22 @@
      */
     public function ${1:models}()
     {
-        return $this->belongsToMany(${3:Name}::class${4:, 'table_name', 'foreign_key', 'local_key'});
+        return $this->belongsToMany(${3:Name}::class${4:, 'table_name', 'my_model_key', 'another_model_key'});
     }
     """
   'hasOne function':
     'prefix': 'hasone:fun'
-    'body': 'Hello World!'
+    'body': """
+    /**
+     * Get the ${1:models} for the ${2:model}.
+     *
+     * @return \\\\Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne
+     */
+    public function ${1:models}()
+    {
+        return $this->hasOne(${3:Name}::class${4:, 'foreign_key', 'local_key'});
+    }
+    """
   'model with':
     'prefix': 'within'
     'body': """
@@ -319,6 +329,20 @@
     'prefix': 'db:table:alias'
     'body': """
     DB::table(DB::raw("({${2:\\$query}->toSql()}) AS ${3:alias_table}"))->mergeBindings(${2:\\$query}->getQuery())$4
+    """
+  'Schema create table':
+    'prefix': 'schema:table:create'
+    'body': """
+		Schema::create('${1:users}', function(Blueprint $table)
+    {
+        $table->bigIncrements('id');
+        $table->${2:string}(${3:'${4:name}', ${5:50}})${6:->nullable()};
+    });
+    """
+  'Schema drop table':
+    'prefix': 'schema:table:drop'
+    'body': """
+    Schema::dropIfExists('${1:users}');
     """
   # View
   'Create a View with Data':

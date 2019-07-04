@@ -63,6 +63,8 @@ You should restart Atom after the Install / Update of the package.
 * **update:dec**: Update decrement.
 * **db:update:case**: Update case when.
 * **db:table:alias**: Alias table query.
+* **schema:table:create**: Schema create table.
+* **schema:table:drop**: Schema drop table.
 
 
 ### Controller
