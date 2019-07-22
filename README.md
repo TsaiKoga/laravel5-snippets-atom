@@ -166,6 +166,53 @@ You should restart Atom after the Install / Update of the package.
 * **log:files:daily**: Storing and use daily log file.
 * **log:files**: Storing and use log file.
 
+### Predis
+* **red:cont**: Redis connection.
+* **red:get**: Redis get key.
+* **red:set**: Redis set key value.
+* **red:del**: Redis delete key value.
+* **red:setrange**: Redis replace string by key and index.
+* **red:exists**: Redis if key exists.
+* **red:setex**: Redis set key-value and expire time.
+* **red:setnx**: Redis set key-value if key not exists.
+* **red:incr**: Redis increase value.
+* **red:incrby**: Redis increase value by steps.
+* **red:decr**: Redis descrease value.
+* **red:decrby**: Redis descrease value by steps.
+
+* **red:hmget**: Redis get multi hash.
+* **red:hmset**: Redis set multi hash.
+* **red:lpush**: Redis left push.
+* **red:rpush**: Redis right push.
+* **red:len**: Redis get list length.
+* **red:lindex**: Redis get list specific position range value.
+* **red:lrem**: Redis remove value from list on left.
+* **red:lpop**: Redis left pop.
+* **red:rpop**: Redis right pop.
+* **red:lpop**: Redis left pop.
+* **red:sort**: Redis sort in list.
+
+* **red:sadd**: Redis add value to sets.
+* **red:scard**: Redis return sets elem count.
+* **red:smembers**: Redis return all members in sets.
+* **red:srem**: Redis remove the element in sets.
+* **red:spop**: Redis pop element from sets.
+* **red:smove**: 'Redis move values from one to another.
+
+
+* **red:zadd**: Redis add value to sorted sets.
+* **red:zincrby**: Redis increase sorted sets value by steps.
+* **red:zrem**: Redis remove sorted sets value.
+* **red:zrange**: Redis return values in range.
+* **red:zrevrange**: Redis return reverse values in range.
+* **red:zscore**: Redis return index of sorted sets value.
+* **red:zcount**: Redis return the sorted sets count.
+
+* **red:keys**: Redis get keys.
+* **red:scan**: Redis scan by keys.
+
+
+
 ***
 
 ![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)

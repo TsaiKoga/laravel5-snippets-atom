@@ -811,3 +811,215 @@
     'body': """
     Log::useFiles(${1:storage_path().'/logs/${2:my}.log'});
     """
+  #
+  # Redis:
+  #
+  'red:cont':
+    'prefix': 'Redis connection'
+    'body': """
+    Redis::connection(${1:connection_name})$2
+    """
+  # Redis string
+  'red:get':
+    'prefix': 'Redis get key'
+    'body': """
+    ${1:\\$redis}->get(${2:key})$3
+    """
+  'red:set':
+    'prefix': 'Redis set key value'
+    'body': """
+    ${1:\\$redis}->set(${2:key}, ${3:value})$4
+    """
+  'red:del':
+    'prefix': 'Redis delete key value'
+    'body': """
+    ${1:\\$redis}->del(${2:key})$3
+    """
+  'red:setrange':
+    'prefix': 'Redis replace string by key and index'
+    'body': """
+    ${1:\\$redis}->setrange(${2:key}, ${3:value}, ${4:replace_value})
+    """
+  'red:exists':
+    'prefix': 'Redis if key exists'
+    'body': """
+    ${1:\\$redis}->exists(${2:key})
+    """
+  'red:setex':
+    'prefix': 'Redis set key-value and expire time'
+    'body': """
+    ${1:\\$redis}->setex(${2:key}, ${3:value}, ${4:time})
+    """
+  'red:setnx':
+    'prefix': 'Redis set key-value if key not exists'
+    'body': """
+    ${1:\\$redis}->setnx(${2:key}, ${3:value})
+    """
+  'red:incr':
+    'prefix': 'Redis increase value'
+    'body': """
+    ${1:\\$redis}->incr(${2:key})
+    """
+  'red:incrby':
+    'prefix': 'Redis increase value by steps'
+    'body': """
+    ${1:\\$redis}->incrby(${2:key}, ${3:step})
+    """
+  'red:decr':
+    'prefix': 'Redis descrease value'
+    'body': """
+    ${1:\\$redis}->decr(${2:key})
+    """
+  'red:decrby':
+    'prefix': 'Redis decrease value by steps'
+    'body': """
+    ${1:\\$redis}->decrby(${2:key}, ${3:step})
+    """
+  # Redis hashes
+  'red:hmget':
+    'prefix': 'Redis get multi hash'
+    'body': """
+    ${1:\\$redis}->hmget(${2:key}, ${3:field})
+    """
+  'red:hmset':
+    'prefix': 'Redis set multi hash'
+    'body': """
+    ${1:\\$redis}->hmset(${2:key}, ${3:array})
+    """
+  # Redis list
+  'red:lpush':
+    'prefix': 'Redis left push'
+    'body': """
+    ${1:\\$redis}->lpush(${2:'list_name'}, ${3:value})
+    """
+  'red:rpush':
+    'prefix': 'Redis right push'
+    'body': """
+    ${1:\\$redis}->rpush(${2:'list_name'}, ${3:value})
+    """
+  'red:len':
+    'prefix': 'Redis get list length'
+    'body': """
+    ${1:\\$redis}->len(${2:'list_name'});
+    """
+  'red:lindex':
+    'prefix': 'Redis get list specific position range value'
+    'body': """
+    ${1:\\$redis}->lindex(${2:'list_name'}, ${3:range});
+    """
+  'red:lrem':
+    'prefix': 'Redis remove value from list on left'
+    'body': """
+    ${1:\\$redis}->lrem(${2:'list_name'}, ${3:range}, '');
+    """
+  'red:lpop':
+    'prefix': 'Redis left pop'
+    'body': """
+    ${1:\\$redis}->lpop(${2:'list_name'});
+    """
+  'red:rpop':
+    'prefix': 'Redis right pop'
+    'body': """
+    ${1:\\$redis}->rpop(${2:'list_name'});
+    """
+  'red:sort':
+    'prefix': 'Redis sort in list'
+    'body': """
+    ${1:\\$redis}->sort('${2:tab}', array('${3:sort}' => '${4:desc}')) ;
+    """
+  # Redis sets
+  'red:sadd':
+    'prefix': 'Redis add value to sets'
+    'body': """
+    ${1:\\$redis}->sadd(${2:'sets_name'}, ${3:sets_value});
+    """
+  'red:scard':
+    'prefix': 'Redis return sets elem count'
+    'body': """
+    ${1:\\$redis}->scard(${2:'sets_name'});
+    """
+  'red:smembers':
+    'prefix': 'Redis return all members in sets'
+    'body': """
+    ${1:\\$redis}->smembers(${2:'sets_name'});
+    """
+  'red:srem':
+    'prefix': 'Redis remove the element in sets'
+    'body': """
+    ${1:\\$redis}->srem(${2:'sets_name'}, ${3:num});
+    """
+  'red:spop':
+    'prefix': 'Redis pop element from sets'
+    'body': """
+    ${1:\\$redis}->spop(${2:'sets_name'});
+    """
+  'red:smove':
+    'prefix': 'Redis move values from one to another'
+    'body': """
+    ${1:\\$redis}->smove(${2:'sets_1'}, ${3:'sets_2'}, ${4:value});
+    """
+  'red:sdiff':
+    'prefix': 'Redis get difference in two sets'
+    'body': """
+    ${1:\\$redis}->sdiff(${2:'sets_1'}, ${3:'sets_2'});
+    """
+  'red:sunion':
+    'prefix': 'Redis get union values in two sets'
+    'body': """
+    ${1:\\$redis}->sunion(${2:'sets_1'}, ${3:'sets_2'});
+    """
+  'red:sinter':
+    'prefix': 'Redis get intersection in two sets'
+    'body': """
+    ${1:\\$redis}->sinter(${2:'sets_1'}, ${3:'sets_2'});
+    """
+  # sorted sets
+  'red:zadd':
+    'prefix': 'Redis add value to sorted sets'
+    'body': """
+    ${1:\\$redis}->sadd(${2:'sets_name'}, ${3:sets_value});
+    """
+  'red:zincrby':
+    'prefix': 'Redis increase sorted sets value by steps'
+    'body': """
+    ${1:\\$redis}->zincrby(${2:'sets_name'}, ${3:steps});
+    """
+  'red:zrem':
+    'prefix': 'Redis remove sorted sets value'
+    'body': """
+    ${1:\\$redis}->zrem(${2:'sets_name'}, ${3:value});
+    """
+  'red:zrange':
+    'prefix': 'Redis return values in range'
+    'body': """
+    ${1:\\$redis}->zrange(${2:'sets_name'}, ${3:from}, ${4:to});
+    """
+  'red:zrevrange':
+    'prefix': 'Redis return reverse values in range'
+    'body': """
+    ${1:\\$redis}->zrevrange(${2:'sets_name'}, ${3:from}, ${4:to});
+    """
+  'red:zscore':
+    'prefix': 'Redis return index of sorted sets value '
+    'body': """
+    ${1:\\$redis}->zscore(${2:'sets_name'}, ${3:value});
+    """
+  'red:zcount':
+    'prefix': 'Redis return the sorted sets count'
+    'body': """
+    ${1:\\$redis}->zcount(${2:'sets_name'});
+    """
+  # Redis more
+  'red:keys':
+    'prefix': 'Redis get keys'
+    'body': """
+    ${1:\\$redis}->keys(${2:'cms:*'});
+    """
+  'red:scan':
+    'prefix': 'Redis scan by keys'
+    'body': """
+    use Predis\\\\Collection\\\\Iterator;
+    foreach (new IteratorKeyspace(${1:\\$client}, ${2:\\$pattern}) as ${3:\\$key}) {
+        $4
+    }
+    """
