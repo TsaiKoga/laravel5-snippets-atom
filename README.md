@@ -21,12 +21,20 @@ You should restart Atom after the Install / Update of the package.
 * **try7**: Try ... catch.
 * **throwex**: throw exception.
 * **car:now**: Carbon now.
+* **car:yesterday**: Carbon yesterday.
+* **car:tomorrow**: Carbon tomorrow.
 * **car:today:start**: Carbon today.
 * **car:start**:  Carbon end of day.
 * **car:end**: Carbon end of day.
 * **car:week:start**: Carbon start of week.
 * **car:week:end**: Carbon end of week.
 * **car:create**: Carbon create datetime.
+
+* **call:func**: php call function.
+* **call:func:array**: php call function with more args.
+
+* **file:get:contents**: php read the file's contents.
+* **file:put:contents**: php write the file's contents.
 
 
 ## Laravel:
@@ -71,6 +79,9 @@ You should restart Atom after the Install / Update of the package.
 * **use:db**: Use DB.
 * **use:log**: Use Log.
 * **use:valid**: Use Validator.
+* **use:file**: Use Filesystem.
+* **use:redis**: Use Redis.
+* **use:cache**: Use Cache.
 * **valid:mk**: Validator check.
 * **trans:try**: Transaction try catch.
 * **mid:ctrl**: Middleware in controller.
@@ -113,6 +124,10 @@ You should restart Atom after the Install / Update of the package.
 * **cc:lock :get**: obtaining arbitrary locks
 * **cc:lock :rel**: release locks
 * **cc:lock :block**: block until the lock becomes available
+
+### File
+* **file:exists**: Check the file or dirctory exists
+* **file:mkdir**: Create directory
 
 ### Config
 * **cf:get**: Get the specified configuration value.
@@ -163,8 +178,10 @@ You should restart Atom after the Install / Update of the package.
 
 
 ### Log
-* **log:files:daily**: Storing and use daily log file.
-* **log:files**: Storing and use log file.
+* **log:files:daily**: Storing and use daily log file. (Not support 5.6+)
+* **log:files**: Storing and use log file. (Not support 5.6+)
+* **log:channel**: Log a message to a channel.
+* **log:stack:channels**: Logging stack consisting of multiple channels.
 
 ### Predis
 * **red:cont**: Redis connection.

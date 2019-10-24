@@ -67,6 +67,16 @@
     'body': """
     Carbon::now()${1:->toDatetimeString()};
     """
+  'Carbon yesterday':
+    'prefix': 'car:yesterday'
+    'body': """
+    Carbon::yesterday()${1:->toDatetimeString()};
+    """
+  'Carbon tomorrow':
+    'prefix': 'car:tomorrow'
+    'body': """
+    Carbon::tomorrow()${1:->toDatetimeString()};
+    """
   'Carbon today':
     'prefix': 'car:today:start'
     'body': """
@@ -96,6 +106,26 @@
     'prefix': 'car:create'
     'body': """
     Carbon::create(${1:2019}, ${2:6}, ${3:1})->format(${4:'Y-m'});
+    """
+  'PHP call function':
+    'prefix': 'call:func'
+    'body': """
+    call_user_func(${1:array(${2:scope}, ${3:method_name})}, ${4:arg});
+    """
+  'PHP call function with more args':
+    'prefix': 'call:func:array'
+    'body': """
+    call_user_func_array(${1:array(${2:scope}, ${3:method_name})}, array(${4:arg}));
+    """
+  'PHP read the file\'s contents':
+    'prefix': 'file:get:contents'
+    'body': """
+    file_get_contents(${1:$url});
+    """
+  'PHP write the file\'s contents':
+    'prefix': 'file:put:contents'
+    'body': """
+    file_put_contents(${1:$path}, ${2:file_get_contents(\\\\$url)});
     """
   # Laravel 5+
   #
@@ -394,6 +424,26 @@
     'body': """
     use Illuminate\\\\Support\\\\Facades\\\\Validator;
     """
+  'Use FileSystem':
+    'prefix': 'use:file'
+    'body': """
+    use Illuminate\\\\Support\\\\Facades\\\\File;
+    """
+  'Use Storage':
+    'prefix': 'use:storage'
+    'body': """
+    use Illuminate\\\\Support\\\\Facades\\\\Storage;
+    """
+  'Use Redis':
+    'prefix': 'use:redis'
+    'body': """
+    use Illuminate\\\\Support\\\\Facades\\\\Redis;
+    """
+  'Use Cache':
+    'prefix': 'use:cache'
+    'body': """
+    use Illuminate\\\\Support\\\\Facades\\\\Cache;
+    """
   'Validator make':
     'prefix': 'valid:mk'
     'body': """
@@ -585,6 +635,18 @@
     'body': """
     Cache::lock('${1:lock-name}', ${2:60})->block(${3:10})
     """
+  # File
+  'Check file or directory exists':
+    'prefix': 'file:exists'
+    'body': """
+    File::exists(${1:\\\\$filepath});$2
+    """
+  'Create directory':
+    'prefix': 'file:mkdir'
+    'body': """
+    File::makeDirectory(${1:\\\\$filepath});$2
+    """
+
   # Config
   'Config get':
     'prefix': 'cf:get'
@@ -801,16 +863,33 @@
     });$5
     """
   # Log
-  'Storing and use daily log file':
+  'Storing and use daily log file(Not support 5.6+)':
     'prefix': 'log:files:daily'
     'body': """
     Log::useDailyFiles(${1:storage_path().'/logs/${2:my}.log'}, ${3:7});
     """
-  'Storing and use log file':
+  'Storing and use log file(Not support 5.6+)':
     'prefix': 'log:files'
     'body': """
     Log::useFiles(${1:storage_path().'/logs/${2:my}.log'});
     """
+  'Storing and use log file(Not support 5.6+)':
+    'prefix': 'log:files'
+    'body': """
+    Log::useFiles(${1:storage_path().'/logs/${2:my}.log'});
+    """
+  'Log a message to a channel':
+    'prefix': 'log:channel'
+    'body': """
+    Log::channel('${1:slack}')->info(${2:'Something happened!'});
+    """
+  'Logging stack consisting of multiple channels.':
+    'prefix': 'log:stack:channels'
+    'body': """
+    Log::stack(${1:['${2:single}', '${3:slack}']})->info(${4:'Something happened!'});
+    """
+
+  ''
   #
   # Redis:
   #
