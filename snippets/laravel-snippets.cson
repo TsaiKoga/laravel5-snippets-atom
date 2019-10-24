@@ -873,11 +873,6 @@
     'body': """
     Log::useFiles(${1:storage_path().'/logs/${2:my}.log'});
     """
-  'Storing and use log file(Not support 5.6+)':
-    'prefix': 'log:files'
-    'body': """
-    Log::useFiles(${1:storage_path().'/logs/${2:my}.log'});
-    """
   'Log a message to a channel':
     'prefix': 'log:channel'
     'body': """
@@ -888,8 +883,6 @@
     'body': """
     Log::stack(${1:['${2:single}', '${3:slack}']})->info(${4:'Something happened!'});
     """
-
-  ''
   #
   # Redis:
   #
