@@ -64,6 +64,7 @@ You should restart Atom after the Install / Update of the package.
 * **boot:fun**: Boot method.
 * **scope:fun**: Scope method.
 * **leftjoin:closure**: Left join closure.
+* **when:closure**: when column is not nullable.
 * **del:all**: Delete all records.
 * **del:one**: Delete a record.
 * **del:force**: Force delete record.
@@ -187,6 +188,7 @@ You should restart Atom after the Install / Update of the package.
 * **red:cont**: Redis connection.
 * **red:get**: Redis get key.
 * **red:set**: Redis set key value.
+* **red:exp**: Redis expire key value.
 * **red:del**: Redis delete key value.
 * **red:setrange**: Redis replace string by key and index.
 * **red:exists**: Redis if key exists.

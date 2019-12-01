@@ -50,10 +50,10 @@
     try {
         $1
     } catch(\\\\Throwable $e) {
-        \\\\Log::error($e->getMessage());
+        \\\\Log::error($e->getFile() . ' ' . $e->getLine() . ': ' . $e->getMessage());
         $2
     } catch(\\\\Exception $e) {
-        \\\\Log::error($e->getMessage());
+        \\\\Log::error($e->getFile() . ' ' . $e->getLine() . ': ' . $e->getMessage());
         $3
     }$4
     """
@@ -325,6 +325,13 @@
     'body': """
     leftJoin('${1:users}', function(\\$join) {
         \\$join->on('${1:users}\\.${2:user_id}', '${3:orders}\\.${2:user_id}')$4;
+    })
+    """
+  'when column is not nullable':
+    'prefix': 'when:closure'
+    'body': """
+    when('${1:column_not_null}', function(\\$query) {
+        \\$query->where('${2:column}', '${3:value}')$4;
     })
     """
   'Delete all records':
@@ -901,6 +908,11 @@
     'prefix': 'Redis set key value'
     'body': """
     ${1:\\$redis}->set(${2:key}, ${3:value})$4
+    """
+  'red:exp':
+    'prefix': 'Redis expire key value'
+    'body': """
+    ${1:\\$redis}->expire(${2:key}, ${3:ttl})$4
     """
   'red:del':
     'prefix': 'Redis delete key value'
