@@ -107,6 +107,58 @@
     'body': """
     Carbon::create(${1:2019}, ${2:6}, ${3:1})->format(${4:'Y-m'});
     """
+  'Carbon create custom format':
+    'prefix': 'car:createFormat'
+    'body': """
+    Carbon::createFromFormat('${1:d/m/Y}', ${2:date})->format('${3:Y-m}');
+    """
+  'Carbon sub days':
+    'prefix': 'car:subDays'
+    'body': """
+    ->subDays(${1:1})${2}
+    """
+  'Carbon sub months':
+    'prefix': 'car:subMonths'
+    'body': """
+    ->subMonths(${1:1})${2}
+    """
+  'Carbon sub Years':
+    'prefix': 'car:subYears'
+    'body': """
+    ->subYears(${1:1})${2}
+    """
+  'Carbon add Days':
+    'prefix': 'car:addDays'
+    'body': """
+    ->addDays(${1:1})${2}
+    """
+  'Carbon add Months':
+    'prefix': 'car:addMonths'
+    'body': """
+    ->addMonths(${1:1})${2}
+    """
+  'Carbon add Years':
+    'prefix': 'car:addYears'
+    'body': """
+    ->addYears(${1:1})${2}
+    """
+  'Regex Match':
+    'prefix': 'preg:match'
+    'body': """
+    preg_match('/${1:pattern}/', ${2:subject}${3:, matches})
+    """
+  'Regex Replace':
+    'prefix': 'preg:replace'
+    'body': """
+    preg_replace('/${1:pattern}/', ${2:replacement}, ${3:subject})
+    """
+  'Regex Replace with Callback':
+    'prefix': 'preg:replace:callback'
+    'body': """
+    preg_replace_callback('/${1:pattern}/', function ($matches)${2} {
+        return ${3:\$matches};
+    }, ${4:subject})
+    """
   'PHP call function':
     'prefix': 'call:func'
     'body': """
@@ -285,11 +337,36 @@
         return $this->hasOne(${3:Name}::class${4:, 'foreign_key', 'local_key'});
     }
     """
+  'hasOneThrough function':
+    'prefix': 'hasone:through'
+    'body': """
+    /**
+     * Get the ${1:user}'s ${2:history}.
+     */
+    public function ${3:userHistory}()
+    {
+        return $this->hasOneThrough(
+            '${4:App\\\\History}',
+            '${5:App\\\\User}',
+            '${6:supplier_id'}, // Foreign key on ${5:users} table...
+            '${7:user_id}', // Foreign key on ${4:history} table...
+            '{8:id}', // Local key on suppliers table...
+            '{9:id}' // Local key on users table...
+        );
+    }
+    """
   'model with':
     'prefix': 'within'
     'body': """
-    ::with(['$1' => function($query$2) {
+    with(['$1' => function($query$2) {
         $query->where($3)->select($4);
+    }]);
+    """
+  'model with relationship\'s count':
+    'prefix': 'with:count'
+    'body': """
+    withCount(['${1:relationship}' => function($query$2) {
+        $query->where($3);
     }]);
     """
   'model boot':
@@ -334,6 +411,23 @@
         \\$query->where('${2:column}', '${3:value}')$4;
     })
     """
+  'where have relationship exists':
+    'prefix': 'where:has'
+    'body': """
+    whereHas('${1:relationship}', function(\\$query) {
+        \\$query->where('${2:column}', '${3:value}')
+                ${4:->from('table')};
+    })
+    """
+  'where doenst have relationship':
+    'prefix': 'where:doesnt:have'
+    'body': """
+    whereDoesntHave('${1:relationship}', function(\\$query) {
+        \\$query->where('${2:column}', '${3:value}')
+                ${4:->from('table')};
+    })
+    """
+
   'Delete all records':
     'prefix': 'del:all'
     'body': "${1:Model}::truncate();$2"

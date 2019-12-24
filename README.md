@@ -29,6 +29,18 @@ You should restart Atom after the Install / Update of the package.
 * **car:week:start**: Carbon start of week.
 * **car:week:end**: Carbon end of week.
 * **car:create**: Carbon create datetime.
+* **car:createFormat**: Carbon create custom format.
+* **car:subDays**: Carbon sub days.
+* **car:subMonths**: Carbon sub months.
+* **car:subYears**: Carbon sub years.
+* **car:addDays**: Carbon add days.
+* **car:addMonths**: Carbon add months.
+* **car:addYears**: Carbon add years.
+
+* **preg:match**: Regex Match.
+* **preg:match:all**: Regex Match All.
+* **preg:replace**: Regex Replace.
+* **preg:replace:callback**: Regex Replace with Callback.
 
 * **call:func**: php call function.
 * **call:func:array**: php call function with more args.
@@ -60,11 +72,16 @@ You should restart Atom after the Install / Update of the package.
 * **belongsto:fun**: BelongsTo method.
 * **belongstom:fun**: BelongsToMany method.
 * **hasone:fun**: HasOne method.
+* **hasone:through**: HasOneThrough method.
+
 * **within**: With method.
+* **with:count**: With relationship's count.
 * **boot:fun**: Boot method.
 * **scope:fun**: Scope method.
 * **leftjoin:closure**: Left join closure.
 * **when:closure**: when column is not nullable.
+* **where:has**: where have relationship exists.
+* **where:doesnt:have**: where another query results exists .
 * **del:all**: Delete all records.
 * **del:one**: Delete a record.
 * **del:force**: Force delete record.
