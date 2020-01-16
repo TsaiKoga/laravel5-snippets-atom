@@ -234,8 +234,8 @@
     \\$bar->finish();
     """
   # Models
-  'fillable columns':
-    'prefix': 'filla:pp'
+  'fillable attributes':
+    'prefix': 'fillable:attr'
     'body': """
     /**
      * The attributes that are mass assignable.
@@ -243,6 +243,16 @@
      * @var array
      */
     protected $fillable = ['${1:properties}'$2];
+    """
+  'appends attributes':
+    'prefix': 'appends:attr'
+    'body': """
+    /**
+     * The accessors to appends to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['${1:is_admin}'$2];
     """
   'Attribute Cast to other type':
     'prefix': 'casts:col'
@@ -350,9 +360,82 @@
             '${5:App\\\\User}',
             '${6:supplier_id'}, // Foreign key on ${5:users} table...
             '${7:user_id}', // Foreign key on ${4:history} table...
-            '{8:id}', // Local key on suppliers table...
-            '{9:id}' // Local key on users table...
+            '${8:id}', // Local key on suppliers table...
+            '${9:id}' // Local key on users table...
         );
+    }
+    """
+  'hasManyThrough function':
+    'prefix': 'hasmany:through'
+    'body': """
+    /**
+     * Get the ${1:country}'s ${2:posts}.
+     */
+    public function ${3:posts}()
+    {
+        return $this->hasManyThrough(
+            '${4:App\\\\Post}',
+            '${5:App\\\\User}',
+            '${6:country_id}', // Foreign key on ${5:users} table...
+            '${7:user_id}', // Foreign key on ${4:posts} table...
+            '${8:id}', // Local key on countries table...
+            '${9:id}' // Local key on users table...
+        );
+    }
+    """
+  'morph one function':
+    'prefix': 'morph:one'
+    'body': """
+    /**
+     * Get the ${1:post}'s image.
+     */
+    public function ${2:image}()
+    {
+        return $this->morphOne(${3:'App\\\\Image'}, '${4:imageable}');
+    }
+    """
+  'morph to function':
+    'prefix': 'morph:to'
+    'body': """
+    /**
+     * Get the owning ${1:imageable} model.
+     */
+    public function ${1:imageable}()
+    {
+        return $this->morphTo();
+    }
+    """
+  'morph one-to-many function':
+    'prefix': 'morph:many'
+    'body': """
+    /**
+     * Get all of the ${1:post}'s ${2:comments}.
+     */
+    public function ${2:comments}()
+    {
+        return $this->morphMany(${3:'App\\\\Comment'}, '${4:commentable}');
+    }
+    """
+  'morph many-to-many function':
+    'prefix': 'morph:to:many'
+    'body': """
+    /**
+     * Get all of the ${1:tags} for the ${2:post}.
+     */
+    public function ${1:tags}()
+    {
+        return $this->morphToMany(${3:'App\\\\Tag'}, '${4:taggable}');
+    }
+    """
+  'morph many-by-many function':
+    'prefix': 'morph:by:many'
+    'body': """
+    /**
+     * Get all of the ${1:posts} that are assigned this ${2:tag}.
+     */
+    public function ${1:posts}()
+    {
+        return $this->morphedByMany(${3:'App\\\\Post'}, '${4:taggable}');
     }
     """
   'model with':
@@ -411,6 +494,11 @@
         \\$query->where('${2:column}', '${3:value}')$4;
     })
     """
+  'where column equals to another column':
+    'prefix': 'where:column'
+    'body': """
+    whereColumn('${1:column1}', '${2:column2}')$3
+    """
   'where have relationship exists':
     'prefix': 'where:has'
     'body': """
@@ -427,7 +515,28 @@
                 ${4:->from('table')};
     })
     """
-
+  'where has polymorphic relationships':
+    'prefix': 'where:has:morph'
+    'body': """
+    whereHasMorph(
+        ${1:'commentable'},
+        [${2:'App\\\\Post'}, ${3:'App\\\\Video'}],
+        function (Builder $query${4:, \$type}) {
+            $query->where($5);
+        }
+    )
+    """
+  'where dosen\'t has polymorphic relationships':
+    'prefix': 'where:doesn:morph'
+    'body': """
+    whereDoesntHaveMorph(
+        ${1:'commentable'},
+        ${2:'App\\\\Post'},
+        function (Builder $query) {
+            $query->where($3);
+        }
+    )
+    """
   'Delete all records':
     'prefix': 'del:all'
     'body': "${1:Model}::truncate();$2"
@@ -544,6 +653,16 @@
     'prefix': 'use:cache'
     'body': """
     use Illuminate\\\\Support\\\\Facades\\\\Cache;
+    """
+  'Use Str':
+    'prefix': 'use:str'
+    'body': """
+    use Illuminate\\\\Support\\\\Str;
+    """
+  'Use Arr':
+    'prefix': 'use:arr'
+    'body': """
+    use Illuminate\\\\Support\\\\Arr;
     """
   'Validator make':
     'prefix': 'valid:mk'
@@ -963,6 +1082,68 @@
         return ${4:is_string(\\$value);}
     });$5
     """
+  # Str Helper
+  'Generate Random string':
+    'prefix': 'str:rand'
+    'body': """
+    Str::random(${1:20})$2;
+    """
+  'Replace string by array':
+    'prefix': 'str:replace:array'
+    'body': """
+    Str::replaceArray(${1:'?'}, ${2:['8:30', '9:00']}, ${3:'? and ?'});
+    """
+  'Replace the first occurrence value in a string':
+    'prefix': 'str:replace:first'
+    'body': """
+    Str::replaceFirst('${1:the}', '${2:a}', '${3:the mess}');
+    """
+  'Convert string to singular':
+    'prefix': 'str:singular'
+    'body': """
+    Str::singular(${1:'children'})$2;
+    """
+  'Generate a URL "slug" from string':
+    'prefix': 'str:slug'
+    'body': """
+    Str::slug(${1:'Laravel 5 Framework'}, ${2:'-'});
+    """
+  'Convert string to snake_case':
+    'prefix': 'str:snake'
+    'body': """
+    Str::snake(${1:'fooBar'})$2
+    """
+  'Add a single instance of string':
+    'prefix': 'str:start'
+    'body': """
+    Str::start(${1:'this/string'}, '${2:/}')$3;
+    """
+  'Check string is start with value':
+    'prefix': 'str:start:with'
+    'body': """
+    Str::startWith(${1:'This is my name'}, ${2:'This'})$3;
+    """
+  'Convert string to studlycase':
+    'prefix': 'str:studly '
+    'body': """
+    Str::studly(${1:'foo_bar'})$2;
+    """
+  'Convert string to TitleCase':
+    'prefix': 'str:title '
+    'body': """
+    Str::title(${1:'tom and jerry'})$2;
+    """
+  'Generate UUID':
+    'prefix': 'str:uuid'
+    'body': """
+    Str::uuid();
+    """
+  'Limit the number of words in a string':
+    'prefix': 'str:words'
+    'body': """
+    Str::words(${1:'Perfectly balanced, as all things should be.'}, ${2:3}, ${3:' >>>'});
+    """
+
   # Log
   'Storing and use daily log file(Not support 5.6+)':
     'prefix': 'log:files:daily'

@@ -65,7 +65,8 @@ You should restart Atom after the Install / Update of the package.
 * **cmd:bar:end**: Log a progress bar to the console and finish it.
 
 ### Models
-* **filla:pp**: Fillable model property.
+* **fillable:attr**: Fillable model property.
+* **appends:attr**: Appends model property.
 * **casts:col**: Attribute Cast to other type.
 * **getfun**: Attribute Accessor(Getter).
 * **setfun**: Attribute Mutator(Setter).
@@ -73,6 +74,13 @@ You should restart Atom after the Install / Update of the package.
 * **belongstom:fun**: BelongsToMany method.
 * **hasone:fun**: HasOne method.
 * **hasone:through**: HasOneThrough method.
+* **hasmany:through**: HasManyThrough method.
+* **morph:one**: morph one method.
+* **morph:to**: morph to method.
+* **morph:many**: morph one-to-many method.
+* **morph:to:many**: morph many to many method.
+* **morph:by:many**: morph many by many method.
+
 
 * **within**: With method.
 * **with:count**: With relationship's count.
@@ -80,8 +88,11 @@ You should restart Atom after the Install / Update of the package.
 * **scope:fun**: Scope method.
 * **leftjoin:closure**: Left join closure.
 * **when:closure**: when column is not nullable.
+* **where:column**: where column equals to another column.
 * **where:has**: where have relationship exists.
 * **where:doesnt:have**: where another query results exists .
+* **where:has:morph**: where has polymorphic relationships.
+* **where:doesn:morph**: where has polymorphic relationships.
 * **del:all**: Delete all records.
 * **del:one**: Delete a record.
 * **del:force**: Force delete record.
@@ -100,6 +111,8 @@ You should restart Atom after the Install / Update of the package.
 * **use:file**: Use Filesystem.
 * **use:redis**: Use Redis.
 * **use:cache**: Use Cache.
+* **use:str**: Use Str.
+* **use:arr**: Use Arr.
 * **valid:mk**: Validator check.
 * **trans:try**: Transaction try catch.
 * **mid:ctrl**: Middleware in controller.
@@ -193,6 +206,20 @@ You should restart Atom after the Install / Update of the package.
 * **array:sort:rec**: Recursively sort an array by keys and values.
 * **array:sort**: Sort the array using the given callback.
 * **array:where**: Filter the array using the given callback.
+
+### Str Helper
+* **str:rand**: Generate random string.
+* **str:replace:array**: Replace string by array.
+* **str:replace:first**: Replace the first occurrence value in a string.
+* **str:singular**: Convert string to singular.
+* **str:slug**: Generate a URL "slug" from string.
+* **str:snake**: Convert string to snake_case.
+* **str:start**: Add a single instance of string.
+* **str:start:with**: Check string is start with value.
+* **str:start**: Convert string to studlycase.
+* **str:title**: Convert string to TitleCase.
+* **str:uuid**: Generate UUID.
+* **str:words**: Limit the number of words in a string.
 
 
 ### Log
