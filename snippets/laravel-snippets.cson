@@ -12,7 +12,7 @@
     protected \\$${3:readPdo};
     $4
     """
-  'public function':
+  'PHP function':
     'prefix': 'pfun'
     'body': """
     /**
@@ -21,10 +21,10 @@
      * @param ${2:string} ${3:\\$var}
      * @return ${4:void}
      */
-    public function ${5:functionName}(${3:\\$var})
+    ${5:public} function ${6:functionName}(${3:\\$var})
     {
-        $6
-    }$7
+        $7
+    }$8
     """
   'public construct':
     'prefix': '_const'
@@ -254,8 +254,28 @@
      */
     protected $appends = ['${1:is_admin}'$2];
     """
+  'hidden attributes':
+    'prefix': 'hidden:attr'
+    'body': """
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['${1:password}'$2];
+    """
+  'Visible attributes':
+    'prefix': 'visible:attr'
+    'body': """
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $visible = ['${1:name}'$2];
+    """
   'Attribute Cast to other type':
-    'prefix': 'casts:col'
+    'prefix': 'casts:attr'
     'body': """
     /**
      * The attributes that should be cast to native types.
@@ -463,7 +483,7 @@
     protected static function boot()
     {
         parent::boot();
-        ${1:self::creating(function(\$model){}}
+        ${1:self::creating(function(\$model){});}
     }
     """
   'Scope function':
@@ -534,6 +554,14 @@
         ${2:'App\\\\Post'},
         function (Builder $query) {
             $query->where($3);
+        }
+    )
+    """
+  'where column In closure':
+    'prefix': 'whereIn:closure'
+    'body': """
+    whereIn(${1:'id'}, function (Builder $query) {
+            $query->where($2);
         }
     )
     """
@@ -629,6 +657,21 @@
     'body': """
     use Illuminate\\\\Support\\\\Facades\\\\Log;
     """
+  'Use Request':
+    'prefix': 'use:request'
+    'body': """
+    use Illuminate\\\\Http\\\\Request;
+    """
+  'Use Auth':
+    'prefix': 'use:auth'
+    'body': """
+    use Illuminate\\\\Support\\\\Facades\\\\Auth;
+    """
+  'Use Collection':
+    'prefix': 'use:collect'
+    'body': """
+    use Illuminate\\\\Support\\\\Collection;
+    """
   'Use Validator':
     'prefix': 'use:valid'
     'body': """
@@ -654,6 +697,11 @@
     'body': """
     use Illuminate\\\\Support\\\\Facades\\\\Cache;
     """
+  'Use Event':
+    'prefix': 'use:event'
+    'body': """
+    use Illuminate\\\\Support\\\\Facades\\\\Event;
+    """
   'Use Str':
     'prefix': 'use:str'
     'body': """
@@ -663,6 +711,11 @@
     'prefix': 'use:arr'
     'body': """
     use Illuminate\\\\Support\\\\Arr;
+    """
+  'Use Carbon':
+    'prefix': 'use:car'
+    'body': """
+    use Carbon\\\\Carbon;
     """
   'Validator make':
     'prefix': 'valid:mk'
@@ -685,12 +738,12 @@
         DB::commit();
         return ${2:\\$this->json_output(200, \\'修改信息\\', \\$datas)};
     } catch(\\\\Throwable $e) {
-        \\\\Log::error($e->getMessage());
-        DB::rollback($e->getMessage());
+        \\\\Log::error($e->getFile() . ' ' . $e->getLine() . ': ' . $e->getMessage());
+        DB::rollback();
         return ${3:\\$this->json_output(2007, \\'保存失败\\')};
     } catch(\\\\Exception $e) {
-        \\\\Log::error($e->getMessage());
-        DB::rollback($e->getMessage());
+        \\\\Log::error($e->getFile() . ' ' . $e->getLine() . ': ' . $e->getMessage());
+        DB::rollback();
         return ${4:\\$this->json_output(2007, \\'保存失败\\')};
     }$5
     """

@@ -16,7 +16,7 @@ You should restart Atom after the Install / Update of the package.
 ## PHP:
 
 * **pvar**: Protected variable.
-* **pfun**: Define public method.
+* **pfun**: Define PHP method.
 * **\__const**: Construct method.
 * **try7**: Try ... catch.
 * **throwex**: throw exception.
@@ -67,7 +67,9 @@ You should restart Atom after the Install / Update of the package.
 ### Models
 * **fillable:attr**: Fillable model property.
 * **appends:attr**: Appends model property.
-* **casts:col**: Attribute Cast to other type.
+* **hidden:attr**: Hidden model property.
+* **visible:attr**: Visible model property.
+* **casts:attr**: Attribute Cast to other type.
 * **getfun**: Attribute Accessor(Getter).
 * **setfun**: Attribute Mutator(Setter).
 * **belongsto:fun**: BelongsTo method.
@@ -93,6 +95,7 @@ You should restart Atom after the Install / Update of the package.
 * **where:doesnt:have**: where another query results exists .
 * **where:has:morph**: where has polymorphic relationships.
 * **where:doesn:morph**: where has polymorphic relationships.
+* **whereIn:closure**: where column in closure.
 * **del:all**: Delete all records.
 * **del:one**: Delete a record.
 * **del:force**: Force delete record.
@@ -107,12 +110,17 @@ You should restart Atom after the Install / Update of the package.
 ### Controller
 * **use:db**: Use DB.
 * **use:log**: Use Log.
+* **use:request**: Use Request.
+* **use:auth**: Use Auth.
+* **use:collect**: Use Collection.
 * **use:valid**: Use Validator.
 * **use:file**: Use Filesystem.
 * **use:redis**: Use Redis.
 * **use:cache**: Use Cache.
+* **use:event**: Use Event.
 * **use:str**: Use Str.
 * **use:arr**: Use Arr.
+* **use:car**: Use Carbon.
 * **valid:mk**: Validator check.
 * **trans:try**: Transaction try catch.
 * **mid:ctrl**: Middleware in controller.
