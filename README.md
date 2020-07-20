@@ -66,6 +66,8 @@ You should restart Atom after the Install / Update of the package.
 
 ### Models
 * **fillable:attr**: Fillable model property.
+* **timestamp:attr**: Model timestamps' property.
+* **dates:attr**: Model dates' property.
 * **appends:attr**: Appends model property.
 * **hidden:attr**: Hidden model property.
 * **visible:attr**: Visible model property.
@@ -109,6 +111,7 @@ You should restart Atom after the Install / Update of the package.
 
 ### Controller
 * **use:db**: Use DB.
+* **use:rule**: Use Rule.
 * **use:log**: Use Log.
 * **use:request**: Use Request.
 * **use:auth**: Use Auth.

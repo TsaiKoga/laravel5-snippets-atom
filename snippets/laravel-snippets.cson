@@ -244,6 +244,16 @@
      */
     protected $fillable = ['${1:properties}'$2];
     """
+  'timestamps attributes':
+    'prefix': 'timestamp:attr'
+    'body': """
+    public $timestamps = ${1:false};
+    """
+  'dates attributes':
+    'prefix': 'dates:attr'
+    'body': """
+    protected $dates = ['${1:deleted_at}'];
+    """
   'appends attributes':
     'prefix': 'appends:attr'
     'body': """
@@ -483,7 +493,7 @@
     protected static function boot()
     {
         parent::boot();
-        ${1:self::creating(function(\$model){});}
+        static::${1:creating}(function(\$model){});}
     }
     """
   'Scope function':
@@ -651,6 +661,11 @@
     'prefix': 'use:db'
     'body': """
     use Illuminate\\\\Support\\\\Facades\\\\DB;
+    """
+  'Use Rule':
+    'prefix': 'use:rule'
+    'body': """
+    use Illuminate\\\\Validation\\\\Rule;
     """
   'Use Log':
     'prefix': 'use:log'
