@@ -493,7 +493,9 @@
     protected static function boot()
     {
         parent::boot();
-        static::${1:creating}(function(\$model){});}
+        static::${1:creating}(function(\$model){
+            ${2}
+        });
     }
     """
   'Scope function':
