@@ -179,6 +179,31 @@
     'body': """
     file_put_contents(${1:$path}, ${2:file_get_contents(\\\\$url)});
     """
+  'PHP change all chars to uppercase':
+    'prefix': 'str:uppercase'
+    'body': """
+    strtoupper(${1})
+    """
+  'PHP change all chars to lowercase':
+    'prefix': 'str:lowercase'
+    'body': """
+    strtolower(${1})
+    """
+  'PHP converts the first char of a string into lowercase':
+    'prefix': 'str:first:lower'
+    'body': """
+    lcfirst(${1})
+    """
+  'PHP converts the first char of a string into uppercase':
+    'prefix': 'str:first:upper'
+    'body': """
+    ucfirst(${1})
+    """
+  'PHP converts the first char of each word into uppercase':
+    'prefix': 'str:word:upper'
+    'body': """
+    ucfirst(${1})
+    """
   # Laravel 5+
   #
   # Debug
@@ -234,6 +259,36 @@
     \\$bar->finish();
     """
   # Models
+  'Use softDelete':
+    'prefix': 'use:softDelete'
+    'body': """
+    use Illuminate\\\\Database\\\\Eloquent\\\\SoftDeletes;
+    """
+  'Add Global Scopes':
+    'prefix': 'add:globalScope'
+    'body': """
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('${1:ancient}', function (Builder $builder) {
+            $builder->where('${2:created_at}', ${3:now()->subYears(2000)});
+        });
+    }
+    """
+  'Model\'s connection':
+    'prefix': 'model:connection'
+    'body': """
+    /**
+     * The database connection that should be used by the model.
+     *
+     * @var string
+     */
+    protected $connection = '${1:sqlite}';
+    """
   'fillable attributes':
     'prefix': 'fillable:attr'
     'body': """
@@ -386,8 +441,8 @@
     public function ${3:userHistory}()
     {
         return $this->hasOneThrough(
-            '${4:App\\\\History}',
-            '${5:App\\\\User}',
+            '${4:\\\\App\\\\History}',
+            '${5:\\\\App\\\\User}',
             '${6:supplier_id'}, // Foreign key on ${5:users} table...
             '${7:user_id}', // Foreign key on ${4:history} table...
             '${8:id}', // Local key on suppliers table...
@@ -404,8 +459,8 @@
     public function ${3:posts}()
     {
         return $this->hasManyThrough(
-            '${4:App\\\\Post}',
-            '${5:App\\\\User}',
+            '${4:\\\\App\\\\Post}',
+            '${5:\\\\App\\\\User}',
             '${6:country_id}', // Foreign key on ${5:users} table...
             '${7:user_id}', // Foreign key on ${4:posts} table...
             '${8:id}', // Local key on countries table...
@@ -421,7 +476,7 @@
      */
     public function ${2:image}()
     {
-        return $this->morphOne(${3:'App\\\\Image'}, '${4:imageable}');
+        return $this->morphOne(${3:'\\\\App\\\\Image'}, '${4:imageable}');
     }
     """
   'morph to function':
@@ -443,7 +498,7 @@
      */
     public function ${2:comments}()
     {
-        return $this->morphMany(${3:'App\\\\Comment'}, '${4:commentable}');
+        return $this->morphMany(${3:'\\\\App\\\\Comment'}, '${4:commentable}');
     }
     """
   'morph many-to-many function':
@@ -454,7 +509,7 @@
      */
     public function ${1:tags}()
     {
-        return $this->morphToMany(${3:'App\\\\Tag'}, '${4:taggable}');
+        return $this->morphToMany(${3:'\\\\App\\\\Tag'}, '${4:taggable}');
     }
     """
   'morph many-by-many function':
@@ -465,8 +520,16 @@
      */
     public function ${1:posts}()
     {
-        return $this->morphedByMany(${3:'App\\\\Post'}, '${4:taggable}');
+        return $this->morphedByMany(${3:'\\\\App\\\\Post'}, '${4:taggable}');
     }
+    """
+  'morph map custom type\'s name':
+    'prefix': 'morph:map'
+    'body': """
+    Relation::morphMap([
+        'post' => 'App\\\\Models\\\\Post',
+        'video' => 'App\\\\Models\\\\Video',
+    ]);
     """
   'model with':
     'prefix': 'within'
@@ -552,7 +615,7 @@
     'body': """
     whereHasMorph(
         ${1:'commentable'},
-        [${2:'App\\\\Post'}, ${3:'App\\\\Video'}],
+        [${2:'\\\\App\\\\Post'}, ${3:'\\\\App\\\\Video'}],
         function (Builder $query${4:, \$type}) {
             $query->where($5);
         }
@@ -563,7 +626,7 @@
     'body': """
     whereDoesntHaveMorph(
         ${1:'commentable'},
-        ${2:'App\\\\Post'},
+        ${2:'\\\\App\\\\Post'},
         function (Builder $query) {
             $query->where($3);
         }
@@ -623,6 +686,20 @@
     'prefix': 'schema:table:drop'
     'body': """
     Schema::dropIfExists('${1:users}');
+    """
+  'Schema add column':
+    'prefix': 'schema:column:add'
+    'body': """
+    Schema::table('${1:users}', function (Blueprint $table) {
+        $table->integer('${2:sex}');
+    });
+    """
+  'Schema drop column':
+    'prefix': 'schema:column:drop'
+    'body': """
+    Schema::table('${1:users}', function (Blueprint $table) {
+        $table->dropColumn('${2:sex}');
+    });
     """
   # View
   'Create a View with Data':
@@ -733,6 +810,16 @@
     'prefix': 'use:car'
     'body': """
     use Carbon\\\\Carbon;
+    """
+  'Use Pivot':
+    'prefix': 'use:pivot'
+    'body': """
+    use Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Pivot;
+    """
+  'Use Relation':
+    'prefix': 'use:relation'
+    'body': """
+    use Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation;
     """
   'Validator make':
     'prefix': 'valid:mk'
@@ -929,12 +1016,12 @@
   'Check file or directory exists':
     'prefix': 'file:exists'
     'body': """
-    File::exists(${1:\\\\$filepath});$2
+    File::exists(${1:\$filepath});$2
     """
   'Create directory':
     'prefix': 'file:mkdir'
     'body': """
-    File::makeDirectory(${1:\\\\$filepath});$2
+    File::makeDirectory(${1:\$filepath}, ${2:0777}, ${3:true});$4
     """
 
   # Config

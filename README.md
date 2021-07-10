@@ -48,6 +48,11 @@ You should restart Atom after the Install / Update of the package.
 * **file:get:contents**: php read the file's contents.
 * **file:put:contents**: php write the file's contents.
 
+* **str:uppercase**: php change all chars to uppercase.
+* **str:lowercase**: php change all chars to lowercase.
+* **str:first:lower**: php converts the first char of a string into lowercase.
+* **str:first:upper**: php converts the first char of a string into uppercase.
+* **str:word:upper**: php converts the first char of each word into uppercase.
 
 ## Laravel:
 ### Debug
@@ -65,6 +70,9 @@ You should restart Atom after the Install / Update of the package.
 * **cmd:bar:end**: Log a progress bar to the console and finish it.
 
 ### Models
+* **use:softDelete**: Use softDelete.
+* **add:globalScope**: Add global scope to model.
+* **model:connection**: Add connection to model.
 * **fillable:attr**: Fillable model property.
 * **timestamp:attr**: Model timestamps' property.
 * **dates:attr**: Model dates' property.
@@ -84,6 +92,7 @@ You should restart Atom after the Install / Update of the package.
 * **morph:many**: morph one-to-many method.
 * **morph:to:many**: morph many to many method.
 * **morph:by:many**: morph many by many method.
+* **morph:map**: Custom type\'s name for morph.
 
 
 * **within**: With method.
@@ -107,6 +116,8 @@ You should restart Atom after the Install / Update of the package.
 * **db:table:alias**: Alias table query.
 * **schema:table:create**: Schema create table.
 * **schema:table:drop**: Schema drop table.
+* **schema:column:add**: Schema add column.
+* **schema:column:drop**: Schema drop column.
 
 
 ### Controller
@@ -124,6 +135,8 @@ You should restart Atom after the Install / Update of the package.
 * **use:str**: Use Str.
 * **use:arr**: Use Arr.
 * **use:car**: Use Carbon.
+* **use:pivot**: Use Pivot.
+* **use:relation**: Use Relation.
 * **valid:mk**: Validator check.
 * **trans:try**: Transaction try catch.
 * **mid:ctrl**: Middleware in controller.
